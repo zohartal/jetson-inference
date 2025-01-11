@@ -7,7 +7,10 @@
 #
 #     $ cd /path/to/your/jetson-inference
 #     $ docker/run.sh
-#
+# create a new docker running:
+#   image_proc/docker/Dockerfile.jetson.p38
+# run me with this command:
+#   docker/run.38.sh --volume /home/zohar/work/image_proc:/image_proc -c jtsn_python38_a
 
 show_help() {
     echo " "
@@ -213,6 +216,10 @@ if [ $ARCH = "aarch64" ]; then
 		--device=/dev/i2c-2:/dev/i2c-2 \
 		--device=/dev/i2c-3:/dev/i2c-3 \
 		--device=/dev/i2c-4:/dev/i2c-4 \
+		--privileged \
+                -v /sys:/sys \
+                -v /dev:/dev \
+                -v /proc:/proc \
 		-w $DOCKER_ROOT \
 		$DISPLAY_DEVICE $V4L2_DEVICES \
 		$DATA_VOLUME $USER_VOLUME $DEV_VOLUME \
